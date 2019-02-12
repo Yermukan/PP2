@@ -1,7 +1,0 @@
-C:\Users\Yermukhan-Laptop\source\repos\Lab number1\Lab4\bin\Debug\Lab4.exe.config
-C:\Users\Yermukhan-Laptop\source\repos\Lab number1\Lab4\bin\Debug\Lab4.exe
-C:\Users\Yermukhan-Laptop\source\repos\Lab number1\Lab4\bin\Debug\Lab4.pdb
-C:\Users\Yermukhan-Laptop\source\repos\Lab number1\Lab4\obj\Debug\Lab4.csprojAssemblyReference.cache
-C:\Users\Yermukhan-Laptop\source\repos\Lab number1\Lab4\obj\Debug\Lab4.csproj.CoreCompileInputs.cache
-C:\Users\Yermukhan-Laptop\source\repos\Lab number1\Lab4\obj\Debug\Lab4.exe
-C:\Users\Yermukhan-Laptop\source\repos\Lab number1\Lab4\obj\Debug\Lab4.pdb
