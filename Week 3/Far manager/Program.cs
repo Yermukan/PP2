@@ -8,14 +8,15 @@ namespace FarManager
 {
     class Layer // class layer with variables(int,FileSystemInfo[])
     {
-        public FileSystemInfo[] Content
+        public FileSystemInfo[] Content // array for folders and files
         {
-            get;
-            set;
-        }
-        int selectedIndex;
+            get; // we can read variables through this operation
+            set; // we can give values to variables by this operation
 
-        public int SelectedIndex
+        }
+        int selectedIndex; 
+
+        public int SelectedIndex 
         {
             get
             {
@@ -38,13 +39,13 @@ namespace FarManager
             }
         }
 
-        public void Draw() // function to make our FAR look interestin
+        public void Draw() // function to make our FAR look interesting
         {
             Console.BackgroundColor = ConsoleColor.Black; // Our FAR's background is black
             Console.Clear(); //  refreshing
-            for (int i = 0; i < Content.Length; i++) //чтобы не выйти за рамки
+            for (int i = 0; i < Content.Length; i++) // not to go beyond
             {
-                if (i == selectedIndex) // Condition which works if the Cursor is equal to the index of the array
+                if (i == selectedIndex) // Condition which works if the selectedIndex is equal to the index of the array
                 {
                     Console.BackgroundColor = ConsoleColor.Red;
                 }
@@ -60,11 +61,11 @@ namespace FarManager
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
                 }
-                Console.WriteLine((i + 1) + ". " + Content[i].Name);
+                Console.WriteLine((i + 1) + ". " + Content[i].Name); // to display the name of folders and files
             }
         }
     }
-    enum FarMode
+    enum FarMode // I opened an enum to access the file and the folder.
     {
         DirectoryView, FileView
     }
@@ -72,9 +73,9 @@ namespace FarManager
     {
         static void Main(string[] args)
         {
-            DirectoryInfo root = new DirectoryInfo(@"C:\Users\Yermukhan-Laptop\source\repos\QWERTY");  // Предоставляет методы экземпляра класса для создания, 
-            // перемещения и перечисления в каталогах и подкаталогах. Этот класс не наследуется.
-            Stack<Layer> history = new Stack<Layer>();
+            DirectoryInfo root = new DirectoryInfo(@"C:\Users\Yermukhan-Laptop\source\repos\QWERTY");  // Provides class instance methods for creating,
+            // move and enumerate in directories and subdirectories. This class is not inherited.
+            Stack<Layer> history = new Stack<Layer>();  // Create a new stack
             FarMode farMode = FarMode.DirectoryView;
             history.Push( // pushing all content from dirInfo;
                 new Layer
@@ -98,19 +99,19 @@ namespace FarManager
                         history.Peek().SelectedIndex++;
                         break;
                     case ConsoleKey.Enter:
-                        int x = history.Peek().SelectedIndex;
+                        int x = history.Peek().SelectedIndex; 
                         FileSystemInfo fileSystemInfo = history.Peek().Content[x];
                         if (fileSystemInfo.GetType() == typeof(DirectoryInfo))
                         {
                             DirectoryInfo d = fileSystemInfo as DirectoryInfo;
-                            history.Push(new Layer { Content = d.GetFileSystemInfos(), SelectedIndex = 0 }); // если папка то добавляю в стек
+                            history.Push(new Layer { Content = d.GetFileSystemInfos(), SelectedIndex = 0 }); // if the folder is added to the stack
                         }
                         else
                         {
                             farMode = FarMode.FileView;
                             using (FileStream fs = new FileStream(fileSystemInfo.FullName, FileMode.Open, FileAccess.Read))
                             {
-                                using (StreamReader sr = new StreamReader(fs)) // если файл то читаем
+                                using (StreamReader sr = new StreamReader(fs)) // if the file is read
                                 {
                                     Console.BackgroundColor = ConsoleColor.Black;
                                     Console.ForegroundColor = ConsoleColor.White;
@@ -131,7 +132,7 @@ namespace FarManager
                             Console.ForegroundColor = ConsoleColor.White;
                         }
                         break;
-                    case ConsoleKey.F2: // чтобы изменить имя папки или файла
+                    case ConsoleKey.F2: // to change the name of a folder or file
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.Clear();
                         string name = Console.ReadLine();
@@ -150,7 +151,7 @@ namespace FarManager
                             history.Peek().Content = fs2.Directory.GetFileSystemInfos();
                         }
                         break;
-                    case ConsoleKey.Delete: // чтобы удалить файл или папку
+                    case ConsoleKey.Delete: //to delete a file or folder
                         int x3 = history.Peek().SelectedIndex;
                         FileSystemInfo fileSystemInfo3 = history.Peek().Content[x3];
                         if (fileSystemInfo3.GetType() == typeof(DirectoryInfo))
