@@ -49,6 +49,9 @@ namespace Task_2
             Console.WriteLine();
             Student Daulet = new Student();
             Console.ReadKey();
+            Student Yermukan = new Student();
+            
+            
         }
     }
 }

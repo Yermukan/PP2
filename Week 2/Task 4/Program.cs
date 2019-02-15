@@ -12,28 +12,33 @@ namespace Task_4
 
         static void Main(string[] args)
         {
-            string Filename = "info.txt";
-            string sourcePath = @"C:\GIT\PP2\Week 2\path";
-            string destPath = @"C:\GIT\PP2\Week 2\path 1";
+            //string Filename = "info.txt";
+            FileStream fs = new FileStream(@"C:\GIT\PP2\Week 2\path\info.txt", FileMode.Create, FileAccess.Write);
 
-            string sourceFile = Path.Combine(sourcePath, Filename);
-            string destFile = Path.Combine(destPath, Filename);
+            string sourcePath = @"C:\GIT\PP2\Week 2\path\info.txt";
+            string destPath = @"C:\GIT\PP2\Week 2\path 1\info.txt";
 
-            File.Copy(sourceFile, destFile);
+            // string sourceFile = Path.Combine(sourcePath, );
+            // string destFile = Path.Combine(destPath, Filename);
+
+            File.Copy(sourcePath, destPath);
+            File.Delete(@"C:\GIT\PP2\Week 2\path\info.txt");
+
             Console.WriteLine("File copied");
 
-            if (File.Exists(@"C:\GIT\PP2\Week 2\path\info.txt"))
-            {
-                try
-                {
-                    File.Delete(@"C:\GIT\PP2\Week 2\path\info.txt");
-                    Console.WriteLine("File deleated");
-                }
-                catch (IOException)
-                {
-                    Console.WriteLine("IOException");
-                }
+            /* if (File.Exists(@"C:\GIT\PP2\Week 2\path\info.txt"))
+             {
+                 try
+                 {
+                     File.Delete(@"C:\GIT\PP2\Week 2\path\info.txt");
+                     Console.WriteLine("File deleated");
+                 }
+                 catch (IOException)
+                 {
+                     Console.WriteLine("IOException");
+                 }
+        
+            } */
             }
         }
     }
-}

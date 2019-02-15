@@ -13,7 +13,7 @@ namespace Task_3
         {
             for (int i = 0; i < a; i++)
             {
-                Console.Write("   ");
+                Console.Write("    ");
             }
         }
         public static void dir(DirectoryInfo dirs, int a)

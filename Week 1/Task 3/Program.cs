@@ -19,14 +19,18 @@ namespace Task_3
         }
         public static void f(int n, string[] numb, int[] array) // This is my method.
         {
-            array = new int[n];// Array of integers, size - n.
+            //array = new int[n];// Array of integers, size - n.
+            List<int> arr = new List<int>();
+            
             for (int i = 0; i < array.Length; i++)//  I opened a loop(for) to write all the elements from the array.
             {
                 array[i] = int.Parse(numb[i]); // elements numb is also in string, I convert this to int.
             }
             for (int i = 0; i < array.Length; i++) //  I opened a loop(for) to write all the elements from the array.
             {
-                Console.Write(array[i] + " " + array[i] + " "); // to write duplicate array elements.
+                //Console.Write(array[i] + " " + array[i] + " "); // to write duplicate array elements.
+                arr.Add(array[i]);
+                arr.Add(array[i]);
             }
         }
     }

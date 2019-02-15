@@ -34,6 +34,9 @@ namespace Task_2
             }
             sw.Close();
             fs.Close();
+            sr.Close();
+            FS.Close();
+
         }
     }
 }
