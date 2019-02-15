@@ -73,14 +73,14 @@ namespace FarManager
     {
         static void Main(string[] args)
         {
-            DirectoryInfo root = new DirectoryInfo(@"C:\Users\Yermukhan-Laptop\source\repos\QWERTY");  // Provides class instance methods for creating,
+            DirectoryInfo dir = new DirectoryInfo(@"C:\Users\Yermukhan-Laptop\source\repos\QWERTY");  // Provides class instance methods for creating,
             // move and enumerate in directories and subdirectories. This class is not inherited.
-            Stack<Layer> history = new Stack<Layer>();  // Create a new stack
+            Stack<Layer> st = new Stack<Layer>();  // Create a new stack
             FarMode farMode = FarMode.DirectoryView;
-            history.Push( // pushing all content from dirInfo;
+            st.Push( // pushing all content from dirInfo;
                 new Layer
                 {
-                    Content = root.GetFileSystemInfos(),
+                    Content = dir.GetFileSystemInfos(),
                     SelectedIndex = 0
                 });
             while (true) //Cycle works until  is true
@@ -88,23 +88,23 @@ namespace FarManager
                 {
                     if (farMode == FarMode.DirectoryView)
                 {
-                    history.Peek().Draw(); //  paints the first page
+                    st.Peek().Draw(); //  paints the first page
                 }
                 ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();  // reading a key
                 switch (consoleKeyInfo.Key) {
                     case ConsoleKey.UpArrow:
-                        history.Peek().SelectedIndex--;
+                        st.Peek().SelectedIndex--;
                         break;
                     case ConsoleKey.DownArrow:
-                        history.Peek().SelectedIndex++;
+                        st.Peek().SelectedIndex++;
                         break;
                     case ConsoleKey.Enter:
-                        int x = history.Peek().SelectedIndex; 
-                        FileSystemInfo fileSystemInfo = history.Peek().Content[x];
+                        int x = st.Peek().SelectedIndex; 
+                        FileSystemInfo fileSystemInfo = st.Peek().Content[x];
                         if (fileSystemInfo.GetType() == typeof(DirectoryInfo))
                         {
                             DirectoryInfo d = fileSystemInfo as DirectoryInfo;
-                            history.Push(new Layer { Content = d.GetFileSystemInfos(), SelectedIndex = 0 }); // if the folder is added to the stack
+                            st.Push(new Layer { Content = d.GetFileSystemInfos(), SelectedIndex = 0 }); // if the folder is added to the stack
                         }
                         else
                         {
@@ -124,7 +124,7 @@ namespace FarManager
                     case ConsoleKey.Backspace:
                         if (farMode == FarMode.DirectoryView)
                         {
-                            history.Pop();  // if u press backspace, stack pops its element
+                            st.Pop();  // if u press backspace, stack pops its element
                         }
                         else if (farMode == FarMode.FileView)
                         {
@@ -136,37 +136,37 @@ namespace FarManager
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.Clear();
                         string name = Console.ReadLine();
-                        int x2 = history.Peek().SelectedIndex;
-                        FileSystemInfo fileSystemInfo2 = history.Peek().Content[x2];
+                        int x2 = st.Peek().SelectedIndex;
+                        FileSystemInfo fileSystemInfo2 = st.Peek().Content[x2];
                         if (fileSystemInfo2.GetType() == typeof(DirectoryInfo))  // if selected item is dir
                         {
                             DirectoryInfo d2 = fileSystemInfo2 as DirectoryInfo;
                             Directory.Move(fileSystemInfo2.FullName, d2.Parent.FullName + "/" + name);
-                            history.Peek().Content = d2.Parent.GetFileSystemInfos();
+                            st.Peek().Content = d2.Parent.GetFileSystemInfos();
                         }
                         else
                         {
                             FileInfo fs2 = fileSystemInfo2 as FileInfo; //  // if selected item is file
                             File.Move(fileSystemInfo2.FullName, fs2.Directory.FullName + "/" + name);
-                            history.Peek().Content = fs2.Directory.GetFileSystemInfos();
+                            st.Peek().Content = fs2.Directory.GetFileSystemInfos();
                         }
                         break;
                     case ConsoleKey.Delete: //to delete a file or folder
-                        int x3 = history.Peek().SelectedIndex;
-                        FileSystemInfo fileSystemInfo3 = history.Peek().Content[x3];
+                        int x3 = st.Peek().SelectedIndex;
+                        FileSystemInfo fileSystemInfo3 = st.Peek().Content[x3];
                         if (fileSystemInfo3.GetType() == typeof(DirectoryInfo))
                         {
                             DirectoryInfo d3 = fileSystemInfo3 as DirectoryInfo;
                             Directory.Delete(fileSystemInfo3.FullName, true);
-                            history.Peek().Content = d3.Parent.GetFileSystemInfos();
+                            st.Peek().Content = d3.Parent.GetFileSystemInfos();
                         }
                         else
                         {
                             FileInfo fs3 = fileSystemInfo3 as FileInfo;
                             File.Delete(fileSystemInfo3.FullName);
-                            history.Peek().Content = fs3.Directory.GetFileSystemInfos();
+                            st.Peek().Content = fs3.Directory.GetFileSystemInfos();
                         }
-                        history.Peek().SelectedIndex--;
+                        st.Peek().SelectedIndex--;
                         break;
                 }
             }
