@@ -156,17 +156,10 @@ namespace FarManager
                         FileSystemInfo fileSystemInfo3 = st.Peek().Content[x3];
                         if (fileSystemInfo3.GetType() == typeof(DirectoryInfo))
                         {
-                            DirectoryInfo d3 = fileSystemInfo3 as DirectoryInfo;
+                            DirectoryInfo d = fileSystemInfo3 as DirectoryInfo;
                             Directory.Delete(fileSystemInfo3.FullName, true);
-                            st.Peek().Content = d3.Parent.GetFileSystemInfos();
+                            st.Peek().Content = d.Parent.GetFileSystemInfos();
                         }
-                        else
-                        {
-                            FileInfo fs3 = fileSystemInfo3 as FileInfo;
-                            File.Delete(fileSystemInfo3.FullName);
-                            st.Peek().Content = fs3.Directory.GetFileSystemInfos();
-                        }
-                        st.Peek().SelectedIndex--;
                         break;
                 }
             }
